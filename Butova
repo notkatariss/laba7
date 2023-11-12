@@ -1,0 +1,71 @@
+import sys
+Teams = {'Гонщики': 9, 'Диваки' : 7, 'Акули' : 4,'Космонавти' : 8, 'Монстри' : 1,'Вікінги' : 3, 'Творці' : 5, 'Воїни' : 6, 'Демони' : 2}
+def Print(dict):
+    for i, j in dict.items():
+        print(i, " - ", j)
+
+def Add(dict, team, score):
+    dict[team] = score
+    print("Додано")
+
+def Add_input():
+    team = input("Введіть назву команди що хочете додати:")
+    score = int(input("Введіть кількість балів що вони набрали"))
+    Add(Teams, team, score)
+def  Delete(dict, team):
+    dict.pop(team)
+    print("Видалено")
+
+def Delete_input():
+    team = input("Введіть команду яку хочете видалити: ")
+    Delete(Teams, team)
+
+def Sort(dict):
+    sorted_dict = {key: value for key, value in sorted(dict.items(), key=lambda item: item[1], reverse=True)}
+    return sorted_dict
+
+def Sort_input():
+    sorted_dict = Sort(Teams)
+    print("Відсортованo: ")
+    for key, value in sorted_dict.items():
+        print(key, " - ", value)
+
+def Place(dictionary, team_name):
+    sorted_dict = Sort(Teams)
+    places = list(sorted_dict.keys())
+    place = places.index(team_name) + 1
+    return place
+
+def Place_input():
+    team = input("Введіть команду місце якої хочете дізнатись: ")
+    place = Place(Teams, team)
+    print("Місце команди '", team, "' - ", place)
+
+def Lower_teams(dictionary, team_name):
+    team_score = dictionary[team_name]
+    less_score_teams = [team for team, score in dictionary.items() if score < team_score]
+    return less_score_teams
+
+def Lower_input():
+    team_name = input("Введіть команду, за якою ви хочете дізнатись тих хто зайняв нижчі місця: ")
+    less_score_teams = Lower_teams(Teams, team_name)
+    print(less_score_teams)
+
+while True:
+    choice = int(input("Оберіть дію яку хочете зробити:\nПродивитись список(Натисніть 1)\nДодати команду до списку(Натисніть 2)\nВидалити з списку(Натисніть 3)\nВідсортувати список(Натисніть 4)\nВизначити місце певної команди(Натисніть 5)\nЗнайти команди які зайняли нижчі місця(Натисніть 6)\nЗавершити програму(Натисніть 0)"))
+    if choice == 1:
+      Print(Teams)
+    elif choice == 2:
+        Add_input()
+    elif choice == 3:
+        Delete_input()
+    elif choice == 4:
+        Sort_input()
+    elif choice == 5:
+        Place_input()
+    elif choice == 6:
+        Lower_input()
+    elif choice == 0:
+        sys.exit()
+    else:
+        print("Невірний вибір. Будь ласка, виберіть '1' для додавання або '2' для виведення інформації.")
